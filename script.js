@@ -107,6 +107,9 @@ window.onload = function() {
     document.getElementById('userDisplay').innerText = currentUser;
     document.getElementById('authSection').style.display = 'none';
     document.getElementById('uploadSection').style.display = 'block';
-    renderPosts();
+  } else {
+    document.getElementById('authSection').style.display = 'block';
+    document.getElementById('uploadSection').style.display = 'none';
   }
+  renderPosts();
 };
