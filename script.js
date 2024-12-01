@@ -112,4 +112,29 @@ window.onload = function() {
     document.getElementById('uploadSection').style.display = 'none';
   }
   renderPosts();
-};
+
+};// Render Posts
+function renderPosts() {
+  const postList = document.getElementById('postList');
+  postList.innerHTML = '';
+
+  // Tampilkan semua postingan tanpa filter berdasarkan currentUser
+  posts.forEach(post => {
+    const postDiv = document.createElement('div');
+    postDiv.className = 'post';
+
+    postDiv.innerHTML = `
+      <div class="post-content">
+        <h4>${post.username}</h4>
+        <p>${post.content}</p>
+        ${post.image ? `<img src="${post.image}" alt="User upload">` : ''}
+      </div>
+      <div class="post-actions">
+        <button onclick="likePost(${post.id})">Like</button>
+        <span>Likes: ${post.likes}</span>
+      </div>
+    `;
+
+    postList.appendChild(postDiv);
+  });
+}
