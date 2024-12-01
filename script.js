@@ -50,13 +50,12 @@ function uploadPost() {
     username: currentUser,
     content: content,
     image: imageFile ? URL.createObjectURL(imageFile) : null,
-    likes: 0,
-    replies: []
+    likes: 0
   };
 
   posts.push(newPost);
   saveData();
-  renderPosts();
+  renderPosts();  // Render ulang semua postingan
 
   document.getElementById('content').value = '';
   document.getElementById('imageUpload').value = '';
@@ -67,14 +66,17 @@ function renderPosts() {
   const postList = document.getElementById('postList');
   postList.innerHTML = '';
 
+  // Tampilkan semua postingan tanpa filter berdasarkan currentUser
   posts.forEach(post => {
     const postDiv = document.createElement('div');
     postDiv.className = 'post';
 
     postDiv.innerHTML = `
-      <h4>${post.username}</h4>
-      <p>${post.content}</p>
-      ${post.image ? `<img src="${post.image}" alt="User upload">` : ''}
+      <div class="post-content">
+        <h4>${post.username}</h4>
+        <p>${post.content}</p>
+        ${post.image ? `<img src="${post.image}" alt="User upload">` : ''}
+      </div>
       <div class="post-actions">
         <button onclick="likePost(${post.id})">Like</button>
         <span>Likes: ${post.likes}</span>
@@ -113,28 +115,4 @@ window.onload = function() {
   }
   renderPosts();
 
-};// Render Posts
-function renderPosts() {
-  const postList = document.getElementById('postList');
-  postList.innerHTML = '';
-
-  // Tampilkan semua postingan tanpa filter berdasarkan currentUser
-  posts.forEach(post => {
-    const postDiv = document.createElement('div');
-    postDiv.className = 'post';
-
-    postDiv.innerHTML = `
-      <div class="post-content">
-        <h4>${post.username}</h4>
-        <p>${post.content}</p>
-        ${post.image ? `<img src="${post.image}" alt="User upload">` : ''}
-      </div>
-      <div class="post-actions">
-        <button onclick="likePost(${post.id})">Like</button>
-        <span>Likes: ${post.likes}</span>
-      </div>
-    `;
-
-    postList.appendChild(postDiv);
-  });
-}
+};
